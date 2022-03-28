@@ -12,7 +12,7 @@ import (
 const DefaultMessageTitleEmbed = `{{ template "default.title" . }}`
 
 var DefaultTemplateString = `
-{{ define "__subject" }}[{{ .CommonLabels.alertname }}] {{ .CommonAnnotations.summary }}: {{ .CommonAnnotations.instance }}{{ end }}
+{{ define "__subject" }}[{{ .CommonLabels.alertname }}] {{ .CommonAnnotations.summary }}: {{ .GroupLabels.instance }}{{ end }}
 
 {{ define "__text_alert_list" }}{{ range . }}
 Value: {{ or .ValueString "[no data]" }}
@@ -24,20 +24,18 @@ Alert dashboard: {{ .DashboardURL }}
 Alert graph: {{ .PanelURL }}
 {{ end }}
 
-Cluster: {{ .Labels.cluster }}
-Namespace: {{ .Labels.namespace }}
-Pod: {{ .Labels.pod }}
-Container: {{ .Labels.container }}
+{{ if gt (len .Labels.cluster) 0 }}Cluster: {{ .Labels.cluster }}{{ end }}
+{{ if gt (len .Labels.namespace) 0 }}Namespace: {{ .Labels.namespace }}{{ end }}
+{{ if gt (len .Labels.pod) 0 }}Pod: {{ .Labels.pod }}{{ end }}
+{{ if gt (len .Labels.container) 0 }}Container: {{ .Labels.container }}{{ end }}
 
 Labels:
-{{ range .Labels.SortedPairs }}
-  {{ .Name }}: {{ .Value }}
+{{ range .Labels.SortedPairs }} - {{ .Name }}: {{ .Value }}
 {{ end }}
 
 {{ if gt (len .Annotations) 0 }}
 Annotations:
-{{ range .Annotations.SortedPairs }}
-  {{ .Name }}: {{ .Value }}
+{{ range .Annotations.SortedPairs }} - {{ .Name }}: {{ .Value }}
 {{ end }}
 {{ end }}
 {{ end }}
