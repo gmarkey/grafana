@@ -28,7 +28,7 @@ Labels:
 
 {{ $title := template "override.title" . }}{{ if eq len $title 0 }}
 {{ define "default.title" }}{{ template "__subject" . }}{{ end }}
-{{ else 
+{{ else }}
 {{ define "default.title" }}{{ template "override.title" . }}{{ end }}
 {{ end }}
 
