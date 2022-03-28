@@ -12,7 +12,7 @@ import (
 const DefaultMessageTitleEmbed = `{{ template "default.title" . }}`
 
 var DefaultTemplateString = `
-{{ define "__subject" }}[{{ .Labels.alertname }}] {{ .Annotations.summary }}: {{ .Annotations.instance }}{{ end }}
+{{ range . }}{{ define "__subject" }}[{{ .Labels.alertname }}] {{ .Annotations.summary }}: {{ .Annotations.instance }}{{ end }}{{ end }}
 
 {{ define "__text_alert_list" }}{{ range . }}
 {{ if gt (len .DashboardURL ) 0 }}
