@@ -26,13 +26,13 @@ Labels:
 {{ end }}{{ if gt (len .PanelURL) 0 }}Panel: {{ .PanelURL }}
 {{ end }}{{ end }}{{ end }}
 
-{{ if not (template "override.title" . ) }}
+{{ if not (include "override.title" . ) }}
 {{ define "default.title" }}{{ template "__subject" . }}{{ end }}
 {{ else 
 {{ define "default.title" }}{{ template "override.title" . }}{{ end }}
 {{ end }}
 
-{{ if not (template "override.message" . ) }}
+{{ if not (include "override.message" . ) }}
 {{ define "default.message" }}{{ if gt (len .Alerts.Firing) 0 }}**Firing**
 {{ template "__text_alert_list" .Alerts.Firing }}{{ if gt (len .Alerts.Resolved) 0 }}
 
