@@ -12,7 +12,7 @@ import (
 const DefaultMessageTitleEmbed = `{{ template "default.title" . }}`
 
 var DefaultTemplateString = `
-{{ define "__subject" }}[{{ .CommonLabels.alertname }}] {{ .CommonAnnotations.summary }}: {{ .CommonAnnotations.instance }}
+{{ define "__subject" }}[{{ .CommonLabels.alertname }}] {{ .CommonAnnotations.summary }}: {{ .CommonAnnotations.instance }}{{ end }}
 
 {{ define "__text_alert_list" }}{{ range . }}
 Value: {{ or .ValueString "[no data]" }}
