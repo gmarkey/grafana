@@ -26,13 +26,25 @@ Labels:
 {{ end }}{{ if gt (len .PanelURL) 0 }}Panel: {{ .PanelURL }}
 {{ end }}{{ end }}{{ end }}
 
+{{ if not (template "override.title" . ) }}
 {{ define "default.title" }}{{ template "__subject" . }}{{ end }}
+{{ else 
+{{ define "default.title" }}{{ template "override.title" . }}{{ end }}
+{{ end }}
 
+{{ if not (template "override.message" . ) }}
 {{ define "default.message" }}{{ if gt (len .Alerts.Firing) 0 }}**Firing**
 {{ template "__text_alert_list" .Alerts.Firing }}{{ if gt (len .Alerts.Resolved) 0 }}
 
 {{ end }}{{ end }}{{ if gt (len .Alerts.Resolved) 0 }}**Resolved**
 {{ template "__text_alert_list" .Alerts.Resolved }}{{ end }}{{ end }}
+{{ else }}
+{{ define "default.message" }}{{ if gt (len .Alerts.Firing) 0 }}**Firing**
+{{ template "override.message" .Alerts.Firing }}{{ if gt (len .Alerts.Resolved) 0 }}
+
+{{ end }}{{ end }}{{ if gt (len .Alerts.Resolved) 0 }}**Resolved**
+{{ template "override.message" .Alerts.Resolved }}{{ end }}{{ end }}
+{{ end }}
 
 
 {{ define "__teams_text_alert_list" }}{{ range . }}
