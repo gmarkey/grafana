@@ -65,10 +65,10 @@ Annotations:
 
 
 {{ define "teams.default.message" }}{{ if gt (len .Alerts.Firing) 0 }}**Firing**
-{{ template "__teams_text_alert_list" .Alerts.Firing }}{{ if gt (len .Alerts.Resolved) 0 }}
+{{ template "__text_alert_list" .Alerts.Firing }}{{ if gt (len .Alerts.Resolved) 0 }}
 
 {{ end }}{{ end }}{{ if gt (len .Alerts.Resolved) 0 }}**Resolved**
-{{ template "__teams_text_alert_list" .Alerts.Resolved }}{{ end }}{{ end }}
+{{ template "__text_alert_list" .Alerts.Resolved }}{{ end }}{{ end }}
 `
 
 // TemplateForTestsString is the template used for unit tests and integration tests.
