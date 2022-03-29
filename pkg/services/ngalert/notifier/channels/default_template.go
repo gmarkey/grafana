@@ -15,8 +15,6 @@ var DefaultTemplateString = `
 {{ define "__subject" }}{{ $instance := index .Alerts 0 }}[{{ .CommonLabels.alertname }}] {{ .CommonAnnotations.summary }}: {{ $instance.Annotations.instance }}{{ end }}
 
 {{ define "__text_alert_list" }}{{ range . }}
-Value: {{ or .ValueString "[no data]" }}
-
 {{ if gt (len .DashboardURL ) 0 }}Alert dashboard: {{ .DashboardURL }}{{ end }}
 {{ if gt (len .PanelURL) 0 }}Alert graph: {{ .PanelURL }}{{ end }}
 
