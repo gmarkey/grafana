@@ -12,17 +12,13 @@ import (
 const DefaultMessageTitleEmbed = `{{ template "default.title" . }}`
 
 var DefaultTemplateString = `
-{{ define "__subject" }}[{{ .CommonLabels.alertname }}] {{ .CommonAnnotations.summary }}: {{ .GroupLabels.instance }}{{ end }}
+{{ define "__subject" }}[{{ .CommonLabels.alertname }}] {{ .CommonAnnotations.summary }}: {{ .CommonAnnotations.instance }}{{ end }}
 
 {{ define "__text_alert_list" }}{{ range . }}
 Value: {{ or .ValueString "[no data]" }}
 
-{{ if gt (len .DashboardURL ) 0 }}
-Alert dashboard: {{ .DashboardURL }}
-{{ end }}
-{{ if gt (len .PanelURL) 0 }}
-Alert graph: {{ .PanelURL }}
-{{ end }}
+{{ if gt (len .DashboardURL ) 0 }}Alert dashboard: {{ .DashboardURL }}{{ end }}
+{{ if gt (len .PanelURL) 0 }}Alert graph: {{ .PanelURL }}{{ end }}
 
 {{ if gt (len .Labels.cluster) 0 }}Cluster: {{ .Labels.cluster }}{{ end }}
 {{ if gt (len .Labels.namespace) 0 }}Namespace: {{ .Labels.namespace }}{{ end }}
