@@ -22,16 +22,6 @@ var DefaultTemplateString = `
 {{ if gt (len .Labels.namespace) 0 }}Namespace: {{ .Labels.namespace }}{{ end }}
 {{ if gt (len .Labels.pod) 0 }}Pod: {{ .Labels.pod }}{{ end }}
 {{ if gt (len .Labels.container) 0 }}Container: {{ .Labels.container }}{{ end }}
-
-Labels:
-{{ range .Labels.SortedPairs }} - {{ .Name }}: {{ .Value }}
-{{ end }}
-
-{{ if gt (len .Annotations) 0 }}
-Annotations:
-{{ range .Annotations.SortedPairs }} - {{ .Name }}: {{ .Value }}
-{{ end }}
-{{ end }}
 {{ end }}
 {{ end }}
 
